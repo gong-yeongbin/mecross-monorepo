@@ -1,0 +1,14 @@
+{
+  "name": "@mecross-monorepo/media",
+  "version": "1.0.0",
+  "description": "",
+  "packageManager": "pnpm@8.6.1",
+  "scripts": {
+    "start": "pnpm run build && node ../../dist/media/app.js",
+    "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./app.ts",
+    "build": "rimraf ../../dist/media && ../../node_modules/.bin/tsc --outDir ../../dist/media"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

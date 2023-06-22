@@ -1,0 +1,12 @@
+{
+  "name": "@mecross-monorepo/system",
+  "version": "1.0.0",
+  "description": "",
+  "packageManager": "pnpm@8.6.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
