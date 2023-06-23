@@ -5,7 +5,7 @@
   "packageManager": "pnpm@8.6.1",
   "scripts": {
     "start": "pnpm run build && node ../../dist/media/app.js",
-    "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./app.ts",
+    "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./app.ts ",
     "build": "rimraf ../../dist/media && ../../node_modules/.bin/tsc --outDir ../../dist/media"
   },
   "keywords": [],
