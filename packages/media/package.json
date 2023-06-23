@@ -6,7 +6,8 @@
   "scripts": {
     "start": "pnpm run build && node ../../dist/media/app.js",
     "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./app.ts ",
-    "build": "rimraf ../../dist/media && ../../node_modules/.bin/tsc --outDir ../../dist/media"
+    "build": "rimraf ../../dist/media && ../../node_modules/.bin/tsc --outDir ../../dist/media",
+    "test": "jest --watch --verbose"
   },
   "keywords": [],
   "author": "",
