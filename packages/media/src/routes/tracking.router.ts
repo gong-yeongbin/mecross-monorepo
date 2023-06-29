@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { query } from 'express-validator';
+import { check, query } from 'express-validator';
 import { routerMiddleWare } from '../middlewares/router.middleware';
 import TrackingController from '../controllers/tracking.controller';
 import router from './index';
@@ -17,14 +17,19 @@ class TrackingRouter {
   registerRoutes = () => {
     this.router.get(
       '/',
-      query('stime').notEmpty().trim().isString().withMessage('Invalid stime'),
-      query('count').trim().notEmpty().isInt().withMessage('Invalid count'),
-      query('campaign')
-        .trim()
-        .notEmpty()
-        .isString()
-        .withMessage('Invalid campaign'),
-      routerMiddleWare.validatorErrorChecker,
+      // query('stime')
+      //   .notEmpty()
+      //   .trim()
+      //   .isInt()
+      //   .isLength({ min: 15 })
+      //   .withMessage('stime 형식에 맞지 않습니다.'),
+      // query('count').trim().notEmpty().isInt().withMessage('int형이 아닙니다.'),
+      // query('campaign')
+      //   .trim()
+      //   .notEmpty()
+      //   .isString()
+      //   .withMessage('campaign 형식에 맞지 않습니다.'),
+      // routerMiddleWare.validatorErrorChecker,
       this.trackingController.tracking
     );
 
