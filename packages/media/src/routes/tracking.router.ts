@@ -1,21 +1,39 @@
 import { Router } from 'express';
 import { query } from 'express-validator';
-import { tracking } from '../controllers/tracking.controller';
-import { validatorErrorChecker } from '../middlewares/router.middleware';
+import { routerMiddleWare } from '../middlewares/router.middleware';
+import TrackingController from '../controllers/tracking.controller';
+import router from './index';
 
-const router: Router = Router();
+class TrackingRouter {
+  private router: Router;
+  private trackingController: TrackingController;
 
-router.get(
-  '/',
-  query('stime').notEmpty().trim().isString().withMessage('Invalid stime'),
-  query('count').trim().notEmpty().isInt().withMessage('Invalid count'),
-  query('campaign')
-    .trim()
-    .notEmpty()
-    .isString()
-    .withMessage('Invalid campaign'),
-  validatorErrorChecker,
-  tracking
-);
+  constructor() {
+    this.router = Router();
+    this.trackingController = new TrackingController();
+    this.registerRoutes();
+  }
 
-export default router;
+  registerRoutes = () => {
+    this.router.get(
+      '/',
+      query('stime').notEmpty().trim().isString().withMessage('Invalid stime'),
+      query('count').trim().notEmpty().isInt().withMessage('Invalid count'),
+      query('campaign')
+        .trim()
+        .notEmpty()
+        .isString()
+        .withMessage('Invalid campaign'),
+      routerMiddleWare.validatorErrorChecker,
+      this.trackingController.tracking
+    );
+
+    return router;
+  };
+
+  getRouter() {
+    return this.router;
+  }
+}
+
+export default TrackingRouter;

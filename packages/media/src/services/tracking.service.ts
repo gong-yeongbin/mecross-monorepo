@@ -1,11 +1,9 @@
-export const getCampaignUrl = () => {};
+class TrackingService {
+  constructor() {}
 
-export const getAdid = (): Array<string> => {
-  return [''];
-};
+  getTrackingCampaignUrl() {}
 
-export const registorSchedule = () => {};
+  getTrackingAdid() {}
+}
 
-export const sum = (a: number, b: number) => {
-  return a + b;
-};
+export default TrackingService;

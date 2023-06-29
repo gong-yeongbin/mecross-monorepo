@@ -1,6 +1,16 @@
-import { Request, RequestHandler, Response } from 'express';
+import { Request, Response } from 'express';
+import TrackingService from '../services/tracking.service';
 
-export const tracking: RequestHandler = (req: Request, res: Response) => {
-  console.log(req.query);
-  res.send('tracking');
-};
+class TrackingController {
+  private trackingService: TrackingService;
+
+  constructor() {
+    this.trackingService = new TrackingService();
+  }
+
+  tracking(req: Request, res: Response) {
+    res.status(200).send('hello world media tracking');
+  }
+}
+
+export default TrackingController;
