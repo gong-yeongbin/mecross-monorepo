@@ -7,9 +7,11 @@ import logger from 'morgan';
 
 import config from './src/configs';
 import indexRouter from './src/routes';
+import * as mongoose from 'mongoose';
 
 const app: Express = express();
 const port: number = config.port;
+const mongo_uri: string = config.mongo_uri;
 
 // 세션 설정
 const sessionMiddleware: express.RequestHandler = session({
@@ -50,6 +52,11 @@ app.use(cookieParser());
 app.use(sessionMiddleware);
 
 app.use('/', indexRouter);
+
+mongoose
+  .connect(mongo_uri)
+  .then(() => console.log('[database]: successfully connected to mongodb'))
+  .catch((e) => console.log(e));
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at <http://localhost:${port}>`);
