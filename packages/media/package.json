@@ -4,10 +4,10 @@
   "description": "",
   "packageManager": "pnpm@8.6.1",
   "scripts": {
-    "start": "pnpm run build && node ../../dist/media/app.js",
-    "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./app.ts ",
+    "start": "pnpm run build && node ../../dist/media/server.js",
+    "start:dev": "nodemon --watch media/ --exec \"ts-node\" ./server.ts ",
     "build": "rimraf ../../dist/media && ../../node_modules/.bin/tsc --outDir ../../dist/media",
-    "test": "jest --watch --verbose"
+    "test": "jest --watchAll --no-cache --verbose"
   },
   "keywords": [],
   "author": "",

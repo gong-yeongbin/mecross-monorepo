@@ -1,27 +1,36 @@
 import { Request, Response } from 'express';
 import TrackingService from '../services/tracking.service';
 import moment from 'moment-timezone';
+import CampaignService from '../services/campaign.service';
+import CommonService from '../services/common.service';
 
 class TrackingController {
   private trackingService: TrackingService;
+  private campaignService: CampaignService;
+  private commonService: CommonService;
 
   constructor() {
     this.trackingService = new TrackingService();
+    this.campaignService = new CampaignService();
+    this.commonService = new CommonService();
   }
 
-  tracking = (req: Request, res: Response) => {
-    const s_time: string = moment(req.query.stime as string)
-      .tz('Asia/Seoul')
-      .utc(true)
-      .format('YYYY-MM-DD HH:mm:ss');
-    const campaign: string = req.query.campaign as string;
-    const count: number = Number(req.query.count);
+  delete = async (req: Request, res: Response) => {
+    await this.trackingService.delete();
+  };
 
-    const url: string = this.trackingService.getTrackingCampaignUrl(campaign);
-    const adid_list: Array<string> =
-      this.trackingService.getTrackingAdid(count);
+  create = async (req: Request, res: Response) => {
+    // const s_time: string = moment(req.query.stime as string)
+    //   .tz('Asia/Seoul')
+    //   .utc(true)
+    //   .format('YYYY-MM-DD HH:mm:ss');
+    // // const campaign: string = req.query.campaign as string;
+    // const count: number = Number(req.query.count);
 
-    this.trackingService.setTrackingRegister(s_time, adid_list, url);
+    // const campaign: ICampaign = await this.campaignService.getCampaign();
+    const adid = await this.commonService.getAdid();
+
+    await this.commonService.createSchedule();
 
     res
       .status(200)

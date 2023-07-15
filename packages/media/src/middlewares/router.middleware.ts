@@ -5,7 +5,13 @@ class RouterMiddleWare {
   validatorErrorChecker(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      let make_msg: string = '';
+
+      errors.array().map((v, i) => {
+        make_msg += `${v.msg}\n `;
+      });
+
+      return res.status(400).json({ error: make_msg });
     }
     next();
   }

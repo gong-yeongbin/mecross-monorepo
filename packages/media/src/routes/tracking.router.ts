@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { query } from 'express-validator';
 import { routerMiddleWare } from '../middlewares/router.middleware';
 import TrackingController from '../controllers/tracking.controller';
-import router from './index';
 
 class TrackingRouter {
   private router: Router;
@@ -15,7 +14,7 @@ class TrackingRouter {
   }
 
   registerRoutes = () => {
-    this.router.get(
+    this.router.post(
       '/',
       query('s_time')
         .notEmpty()
@@ -34,10 +33,10 @@ class TrackingRouter {
         .isString()
         .withMessage('campaign 형식에 맞지 않습니다.'),
       routerMiddleWare.validatorErrorChecker,
-      this.trackingController.tracking
+      this.trackingController.create
     );
 
-    return router;
+    this.router.get('/delete', this.trackingController.delete);
   };
 
   getRouter() {

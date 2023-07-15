@@ -1,25 +1,30 @@
 import { scheduleJob } from 'node-schedule';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
+import Tracking_Info from '../models/tracking_info';
 
 class TrackingService {
   constructor() {}
 
-  setTrackingRegister = (
-    s_time: string,
-    adid_list: Array<string>,
-    url: string
-  ): void => {
-    scheduleJob(s_time, () => {
-      // api call
-    });
-  };
+  delete = async () => {
+    const tracking_info = await Tracking_Info.aggregate([
+      {
+        $group: {
+          _id: '$adid',
+          targets: { $push: '$$ROOT' },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $match: { count: { $gt: 1 } },
+      },
+    ]);
 
-  getTrackingCampaignUrl = (name: string): string => {
-    return 'http://api.mecrosspro.com/tracking?token=f46b53c1cb7449649a4fbd0c6ba24b71';
-  };
-
-  getTrackingAdid = (count: number): Array<string> => {
-    return ['test123'];
+    for (let doc of tracking_info) {
+      doc.targets.shift();
+      await Tracking_Info.deleteMany({
+        _id: { $in: doc.targets },
+      });
+    }
   };
 }
 
